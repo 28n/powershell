@@ -6,6 +6,9 @@ $PROMPT_CONFIG = Join-Path (Get-ScriptDirectory) 'lambda.omp.json'
 
 Invoke-Expression (&starship init powershell)
 
+$starshipConfigPath = Test-Path ~\.config\starship.toml
+
+
 Import-Module -Name Terminal-Icons
 
 Set-PSReadLineOption -EditMode Emacs
@@ -44,8 +47,8 @@ function which ($command) {
 		Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
 	}
 
-function uwu () {
-    echo "Henlo uwu"
-  }
-
 cls
+
+  if ($starshipConfigPath -eq $false) {
+    echo "The Starship config file does not exist. Please create one."
+  }
