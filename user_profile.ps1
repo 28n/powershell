@@ -44,11 +44,33 @@ $aliasdata | ForEach-Object {
 
 function which ($command) {
 	Get-Command -Name $command -ErrorAction SilentlyContinue |
-		Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
-	}
+	Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
+}
 
+$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+$runsAsAdmin = $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+function admin () {
+  if ($runsAsAdmin) {
+    # start powershell and echo hello world
+    Write-Host "You are already running as Administrator"
+    return
+  } else {
+    Start-Process wt.exe -Verb RunAs
+  }
+}
+
+function isAdmin () {
+  if ($runsAsAdmin) {
+    Write-Host "You are running as admin"
+  } else {
+    Write-Host "You are not running as admin"
+  }
+}
+
+# CLS
 cls
 
-  if ($starshipConfigPath -eq $false) {
-    echo "The Starship config file does not exist. Please create one."
-  }
+if ($starshipConfigPath -eq $false) {
+  echo "The Starship config file does not exist. Please create one."
+}
