@@ -13,13 +13,29 @@ Set-PSReadLineOption -PredictionSource History
 Import-Module PSFzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
 
-Set-Alias vim nvim
-Set-Alias vi nvim
-Set-Alias ll ls
-Set-Alias g git
-Set-Alias grep findstr
-Set-Alias tig 'C:\Program Files\Git\usr\bin\tig.exe'
-Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
+# Alias Array
+
+$aliasdata = @(
+  [pscustomobject]@{name = 'vim'; command = 'nvim'}
+  [pscustomobject]@{name = 'vi'; command = 'nvim'}
+  [pscustomobject]@{name = 'g'; command = 'git'}
+  [pscustomobject]@{name = 'll'; command = 'ls'}
+  [pscustomobject]@{name = 'grep'; command = 'findstr'}
+  [pscustomobject]@{name = 'tig'; command = 'C:\Program Files\Git\usr\bin\tig.exe'}
+  [pscustomobject]@{name = 'less'; command = 'C:\Program Files\Git\usr\bin\less.exe'}
+)
+
+$aliasdata | ForEach-Object {
+  Set-Alias $_.name $_.command
+}
+
+# Set-Alias vim nvim
+# Set-Alias vi nvim
+# Set-Alias ll ls
+# Set-Alias g git
+# Set-Alias grep findstr
+# Set-Alias tig 'C:\Program Files\Git\usr\bin\tig.exe'
+# Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 
 function which ($command) {
 	Get-Command -Name $command -ErrorAction SilentlyContinue |
