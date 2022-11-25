@@ -28,6 +28,8 @@ $aliasdata = @(
   [pscustomobject]@{name = 'grep'; command = 'findstr'}
   [pscustomobject]@{name = 'tig'; command = 'C:\Program Files\Git\usr\bin\tig.exe'}
   [pscustomobject]@{name = 'less'; command = 'C:\Program Files\Git\usr\bin\less.exe'}
+  [pscustomobject]@{name = 'n'; command = 'pnpm'}
+  [pscustomobject]@{name = 'npm'; command = 'pnpm'}
 )
 
 $aliasdata | ForEach-Object {
@@ -70,7 +72,15 @@ function isAdmin () {
 
 function author () {
     Start-Process "https://www.samsierra.de"
-  }
+}
+
+function tab () {
+    wt -w 0 nt
+}
+
+function cwdtab () {
+    wt -w 0 nt -d .
+}
 
 # CLS
 cls
