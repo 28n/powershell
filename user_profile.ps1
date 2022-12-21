@@ -4,6 +4,7 @@ function Get-ScriptDirectory { Split-Path $MyInvocation.ScriptName }
 $PROMPT_CONFIG = Join-Path (Get-ScriptDirectory) 'lambda.omp.json'
 # oh-my-posh init pwsh --config $PROMPT_CONFIG | Invoke-Expression
 
+$ENV:STARSHIP_DISTRO = "者 xcad"
 Invoke-Expression (&starship init powershell)
 
 $starshipConfigPath = Test-Path ~\.config\starship.toml
@@ -47,6 +48,10 @@ $aliasdata | ForEach-Object {
 function which ($command) {
 	Get-Command -Name $command -ErrorAction SilentlyContinue |
 	Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
+}
+
+function czinit () {
+  commitizen init cz-conventional-changelog --save-dev --save-exact
 }
 
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
