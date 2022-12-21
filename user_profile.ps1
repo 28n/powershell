@@ -79,6 +79,10 @@ function g ()
     { 
       'add'
     }
+    'p'
+    {
+      'push'
+    }
     default
     { 
       $command 
