@@ -83,9 +83,36 @@ function g ()
     {
       'push'
     }
+    'c'
+    {
+      'cz'
+    }
+    'commit'
+    {
+      'cz'
+    }
     default
     { 
       $command 
+    }
+  }
+  $acceptsargs = switch ($command)
+  {
+    'cz'
+    {
+      $false
+    }
+    'c'
+    {
+      $false
+    }
+    'commit'
+    {
+      $false
+    }
+    default
+    {
+      $true 
     }
   }
   if ($command -ne '')
@@ -97,6 +124,12 @@ function g ()
       if ($debug -eq $true)
       {
         Write-Host 'Writing CMD with Args'
+      }
+
+      if ($acceptsargs -eq $false)
+      {
+        Write-Host "Command does not accept Arguments, but it got:" $arguments
+        return
       }
 
       git $command $arguments
