@@ -1,19 +1,116 @@
 # Powershell
 
-![PWSH](https://github.com/28n/assets/blob/main/powershell/pwsh.png?raw=true)
+This is a fast, modern, powerful and highly extensible Powershell configuration
 
-Yea, welcome to these damn bad Powershell Configs. I dont know how to install this, so just dont use it.
+![pwsh v2.0 preview](https://github.com/28n/assets/blob/main/powershell/v2.0.png?raw=true)
 
-If youre good at Powershell and Windows Stuff, go for it.
+# ✨ Features
 
-## Current Functions
+- ⭐ Prompt Customization using [starship](https://github.com/starship/starship)
+- 📁 [Terminal Icons](https://github.com/devblackops/Terminal-Icons) for File View
+- 🔍 Autocompletion using [PSReadLine](https://github.com/PowerShell/PSReadLine)
+- 🔑 Aliases for better Workflow
+- 🧰 Utility Commands
+- 🚦 Rewritten Git Command, that can be configured to your liking
+- 🚋 Goto Command, that too can be configured to your liking
+- 💻 additionally, Modular Loading
 
-- Cool Oh-my-posh setup (not used tho)
+# ⚡️ Requirements
 
-- cool starship setup (used)
+- Powershell >= 7.3.1
+- Git
+- Pnpm Package Manager
+- Commitizen Conventional Changelog: `npm i -g commitizen`
+- a [Nerd Font](https://www.nerdfonts.com/)
 
-- cool set-alias setup (also used)
+# 📦 Installation
 
-- fzf and psreadline
+_This will be reworked in the future, as this process is long and tedious_
 
-- cluttered and bloated config-file
+## Install Modules manually
+
+In Powershell, run the following Commands:
+
+`winget install --id Starship.Starship`
+
+`Install-Module -Name Terminal-Icons -Repository PSGallery`
+
+`Install-Module PSReadLine`
+
+or if you are using Scoop:
+
+`scoop bucket add extras`
+
+`scoop install starship`
+
+`scoop install terminal-icons`
+
+`Install-Module PSReadLine`
+
+## Clone this repository
+
+`git clone https://github.com/28n/powershell "$env:HOME\.config\powershell"`
+
+**or**
+
+install manually to `~/.config/powershell`
+
+## Link Custom User Profile to Current User Profile
+
+Open `$PROFILE.CurrentUserCurrentHost` with your favourite Text Editor, e.g. Neovim:
+
+`nvim $PROFILE.CurrentUserCurrentHost`
+
+Add the following text to this file:
+
+```ps1
+. $env:USERPROFILE\.config\powershell\user_profile.ps1
+```
+
+# 🚀 Usage
+
+## Command Aliases
+
+- `vim` + `vi` for `nvim`
+- `ll` for `ls`
+- `grep` for `findstr`
+- `tig` to manually execute `tig` executable
+- `less` to manually execute `less` executable
+- `n` and `npm` for `pnpm`
+
+## Custom Git Command
+
+You may use the git command normally, but i have rewritten to work with the following aliases:
+
+`g`:
+
+- `s` for `status`
+- `a` for `add`
+- `p` for `push`
+- `c` and `commit` to execute commitizen `cz`
+
+## Commitizen Init
+
+You may use the `czinit` command to initialize a commitizen friendly repo in an already existing git repository.
+
+If the repo is already commitizen friendly and this command throws an error, try installing missing deps by running `npm install`
+
+## Goto
+
+This command lets you quickly hop to _my_ most commonly used folders.
+
+`gt`:
+
+- `h` to `~`
+- `nv` to `$ENV:LOCALAPPDATA + \nvim\`
+- `nvd` to `$ENV:LOCALAPPDATA + \nvim-data\`
+
+## PSReadLine
+
+To delete a PSReadLine Completion Character, press `Ctrl+D`
+
+**NOTE**: If PSReadLine doesn't autocomplete automatically, you should first let the application learn based off of your commands. Type them once, then PSReadLine remembers.
+
+## Oh-My-Posh
+
+As you might have noticed, there are OMP Themes located in this config. Oh My Posh is currently not install, but it will be, when i implement a Prompt Switcher.
