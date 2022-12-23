@@ -3,8 +3,6 @@ Import-Module posh-git
 function Get-ScriptDirectory
 { Split-Path $MyInvocation.ScriptName 
 }
-$PROMPT_CONFIG = Join-Path (Get-ScriptDirectory) 'lambda.omp.json'
-# oh-my-posh init pwsh --config $PROMPT_CONFIG | Invoke-Expression
 
 $ENV:STARSHIP_DISTRO = "者 xcad"
 Invoke-Expression (&starship init powershell)
@@ -239,9 +237,9 @@ function cwdtab ()
 }
 
 # CLS
-cls
+Clear-Host
 
 if ($starshipConfigPath -eq $false)
 {
-  echo "The Starship config file does not exist. Please create one."
+  Write-Output "The Starship config file does not exist. Please create one."
 }
