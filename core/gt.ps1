@@ -18,6 +18,10 @@ function gt
     {
       $ENV:LOCALAPPDATA + '\nvim-data\'
     }
+    'ps'
+    {
+      '~\.config\powershell\'
+    }
     default
     {
       ''

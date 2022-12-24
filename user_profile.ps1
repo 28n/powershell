@@ -14,6 +14,7 @@ $coremodules =
 "commands\author",
 "git",
 "gt",
+"gitignore\gitignore",
 "starship"
 
 
