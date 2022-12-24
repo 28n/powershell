@@ -56,6 +56,12 @@ function g ()
   if ($command -ne '')
   {
 
+    if ($command -eq 'add')
+    {
+      Write-Error "Add is not supported. Please use git add."
+      return
+    }
+
 
     if ($arguments -ne '')
     {

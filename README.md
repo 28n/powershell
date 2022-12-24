@@ -13,6 +13,7 @@ This is a fast, modern, powerful and highly extensible Powershell configuration
 - 🧰 Utility Commands
 - 🚦 Rewritten Git Command, that can be configured to your liking
 - 🚋 Goto Command, that too can be configured to your liking
+- 🛂 Gitignore Templates
 - 💻 additionally, Modular Loading
 
 # ⚡️ Requirements
@@ -94,6 +95,14 @@ You may use the git command normally, but i have rewritten to work with the foll
 You may use the `czinit` command to initialize a commitizen friendly repo in an already existing git repository.
 
 If the repo is already commitizen friendly and this command throws an error, try installing missing deps by running `npm install`
+
+## Gitignore
+
+To see all possible templates, run the `gitignore` command without any flags or with the `-h` or `--help` flag.
+
+To create a `.gitignore` file in your current directory, run the `gitignore` command with any available template name as an argument.
+
+To see a templates content, run the `gitignore` command with the `-s` or `--show` flag. Then append a valid template name to the end. E.g.: `gitignore -s node`
 
 ## Goto
 

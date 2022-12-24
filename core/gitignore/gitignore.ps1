@@ -55,6 +55,13 @@ function gitignore
     if ($possibletypes -contains $type)
     {
       $fileexists = Test-Path ".gitignore"
+      $gitexists = Test-Path ".git"
+
+      if ($gitexists -eq $false)
+      {
+        Write-Output "No Git Repository found in this directory!"
+        return
+      }
 
       if ($fileexists -eq $true)
       {
