@@ -22,6 +22,10 @@ function gt
     {
       '~\.config\powershell\'
     }
+    'psi'
+    {
+      'F:\projects\powershellinstaller\'
+    }
     default
     {
       ''
