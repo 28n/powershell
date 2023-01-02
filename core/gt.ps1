@@ -26,6 +26,10 @@ function gt
     {
       'F:\projects\powershellinstaller\'
     }
+    'pr'
+    {
+      'F:\projects'
+    }
     default
     {
       ''
