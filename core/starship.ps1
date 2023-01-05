@@ -1,7 +1,9 @@
-$ENV:STARSHIP_DISTRO = "者 Sierra "
-Invoke-Expression (&starship init powershell)
+$starshipConfigPath = Test-Path ~\.config\powershell\starship.toml
 
-$starshipConfigPath = Test-Path ~\.config\starship.toml
+$ENV:STARSHIP_DISTRO = "者 Sierra "
+$ENV:STARSHIP_CONFIG = "$HOME\.config\powershell\starship.toml"
+
+Invoke-Expression (&starship init powershell)
 
 if ($starshipConfigPath -eq $false)
 {
