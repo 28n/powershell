@@ -1,104 +1,104 @@
 function g ()
 {
   param (
-    [string]$command,
-    [string]$arguments
+    [Parameter(Mandatory=$false, Position=0)]
+    [String]$command,
+
+    [Parameter(ValueFromRemainingArguments=$true)]
+    [String[]]$arguments
   )
 
-  $debug = $false
+  $dev = $false
 
-  $command = switch ($command)
+  $commands = @(
+    [pscustomobject]@{
+      command = "add";
+      alias = "a";
+      acceptsArgs = $true;
+    }
+    [pscustomobject]@{
+      command = "commit";
+      alias = "c";
+      acceptsArgs = $false;
+      override = "cz";
+    }
+    [pscustomobject]@{
+      command = "status";
+      alias = "s";
+      acceptsArgs = $false;
+    }
+    [pscustomobject]@{
+      command = "push";
+      alias = "p";
+      acceptsArgs = $false;
+    }
+    [pscustomobject]@{
+      command = "pull";
+      alias = "u";
+      acceptsArgs = $false;
+    }
+    [pscustomobject]@{
+      command = "diff";
+      alias = "d";
+      acceptsArgs = $false;
+    }
+  )
+
+  $activeCommand = $commands | Where-Object { $_.command -eq $command -or $_.alias -eq $command }
+
+  if ($dev -eq $true)
   {
-    's'
-    { 
-      'status'
-    }
-    'a'
-    { 
-      'add'
-    }
-    'p'
-    {
-      'push'
-    }
-    'c'
-    {
-      'cz'
-    }
-    'commit'
-    {
-      'cz'
-    }
-    default
-    { 
-      $command 
-    }
+    $activeCommand
   }
-  $acceptsargs = switch ($command)
+
+  if ($command -eq $null -or $command -eq '')
   {
-    'cz'
-    {
-      $false
-    }
-    'c'
-    {
-      $false
-    }
-    'commit'
-    {
-      $false
-    }
-    default
-    {
-      $true 
-    }
-  }
-  if ($command -ne '')
-  {
-
-    if ($command -eq 'add')
-    {
-      Write-Error "Add is not supported. Please use git add."
-      return
-    }
-
-
-    if ($arguments -ne '')
-    {
-      if ($debug -eq $true)
-      {
-        Write-Host 'Writing CMD with Args'
-      }
-
-      if ($acceptsargs -eq $false)
-      {
-        Write-Host "Command does not accept Arguments, but it got:" $arguments
-        return
-      }
-
-      git $command $arguments
-    } else
-    {
-      if ($debug -eq $true)
-      {
-        Write-Host 'Writing CMD w/o Args'
-      }
-      git $command
-    }
-  } else
-  {
-    if ($debug -eq $true)
-    {
-      Write-Host 'Writing Git solo'
-    }
-
     git
+    return
   }
-  if ($debug -eq $true)
+
+  if ($null -eq $activeCommand)
   {
-    Write-Host 'Command:'
-    Write-Host $command
-    Write-Host 'Arguments:'
-    Write-Host $arguments
+    if ($dev -eq $true)
+    {
+      Write-Host "Normal Git execution"
+    }
+    git $command $arguments
+    return
+  }
+
+  if ($activeCommand.acceptsArgs -eq $false -and $null -ne $arguments)
+  {
+    Write-Host "Command $command does not accept arguments"
+    return
+  }
+
+  if ($activeCommand.acceptsArgs -eq $true -and $null -eq $arguments)
+  {
+    Write-Host "Command $command requires arguments"
+    return
+  }
+
+  if ($null -ne $activeCommand.override)
+  {
+    if ($dev -eq $true)
+    {
+      Write-Host "Override execution"
+    }
+    git $activeCommand.override $arguments
+    return
+  }
+
+  if ($dev -eq $true)
+  {
+    Write-Host "Executing command $command with arguments $arguments"
+  }
+
+  git $activeCommand.command $arguments
+
+  if ($dev -eq $true)
+  {
+    Write-Host 'Command:' $command
+    Write-Host 'Arguments:' $arguments
   }
 }
