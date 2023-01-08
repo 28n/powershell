@@ -30,6 +30,10 @@ function gt
     {
       'F:\projects'
     }
+    'sp'
+    {
+      'F:\sideprojects'
+    }
     default
     {
       ''
