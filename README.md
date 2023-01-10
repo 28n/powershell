@@ -65,7 +65,7 @@ Open `$PROFILE.CurrentUserCurrentHost` with your favourite Text Editor, e.g. Neo
 Add the following text to this file:
 
 ```ps1
-. $env:USERPROFILE\.config\powershell\user_profile.ps1
+. $env:USERPROFILE\.config\powershell\28n_profile.ps1
 ```
 
 # 🚀 Usage

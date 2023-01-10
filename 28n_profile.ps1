@@ -24,3 +24,12 @@ foreach ($module in $coremodules)
 }
 
 Import-Module $PSScriptRoot\util\finalize.ps1
+
+# Load custom Plugins
+
+$plugins = Get-ChildItem $PSScriptRoot\plugins\*.ps1
+
+foreach ($plugin in $plugins)
+{
+  Import-Module $plugin
+}
