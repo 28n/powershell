@@ -27,9 +27,9 @@ Import-Module $PSScriptRoot\util\finalize.ps1
 
 # Load custom Plugins
 
-$plugins = Get-ChildItem $PSScriptRoot\plugins\*.ps1
+$pluginsFolders = Get-ChildItem $PSScriptRoot\plugins\ -Directory
 
-foreach ($plugin in $plugins)
+foreach ($folder in $pluginsFolders)
 {
-  Import-Module $plugin
+  Import-Module $folder\init.ps1
 }
