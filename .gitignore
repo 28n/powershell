@@ -5,3 +5,5 @@ yarn.lock
 
 tests
 playground.*
+
+plugins/Start-IPWatcher/Logs
